@@ -2,25 +2,13 @@ import streamlit as st
 import pickle
 import pandas as pd
 import requests
-import time
 
 def fetch_poster(movie_id):
-    try:
-        response = requests.get(f'https://api.themoviedb.org/3/movie/{movie_id}?api_key=84e76a926e4a5f095b99da6d6c84ef41&language=en-US')
-        response.raise_for_status() # Raises an error for bad status codes
-        data = response.json()
+    response=requests.get('https://api.themoviedb.org/3/movie/{}?api_key=84e76a926e4a5f095b99da6d6c84ef41&language=en-US'.format(movie_id))
+    data = response.json()
+    return "https://image.tmdb.org/t/p/w500/"+data['poster_path']
 
-        poster_path = data.get('poster_path')
-        if poster_path:
-            return "https://image.tmdb.org/t/p/w500/" + poster_path
-        else:
-            # Return a placeholder if the movie has no poster
-            return "https://via.placeholder.com/500x750.png?text=No+Poster+Available"
 
-    except requests.exceptions.RequestException as e:
-        # Return a different placeholder if the API request fails
-        print(f"API request failed: {e}")
-        return "https://via.placeholder.com/500x750.png?text=Could+Not+Load"
 
 
 def recommend(movie):
@@ -35,7 +23,6 @@ def recommend(movie):
         recommended_movies.append(movies.iloc[i[0]].title)
         # fetch poster from API
         recommended_movies_posters.append(fetch_poster(movie_id))
-        time.sleep(0.05)
     return recommended_movies,recommended_movies_posters
 
 movies_dict = pickle.load(open('movies_dict.pkl','rb'))
