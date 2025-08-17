@@ -78,6 +78,47 @@ st.markdown("""
         font-weight: 300;
     }
     
+    .recommendations-header {
+        text-align: center;
+        color: white;
+        font-size: 2.5rem;
+        font-weight: 600;
+        margin: 3rem 0 2rem 0;
+        text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+    }
+    
+    @media (max-width: 768px) {
+        .main-header {
+            font-size: 2.5rem;
+            margin-bottom: 0.3rem;
+        }
+        
+        .sub-header {
+            font-size: 1rem;
+            margin-bottom: 1.5rem;
+        }
+        
+        .recommendations-header {
+            font-size: 2rem;
+            margin: 2rem 0 1.5rem 0;
+        }
+    }
+    
+    @media (max-width: 480px) {
+        .main-header {
+            font-size: 2rem;
+        }
+        
+        .sub-header {
+            font-size: 0.9rem;
+            padding: 0 1rem;
+        }
+        
+        .recommendations-header {
+            font-size: 1.5rem;
+        }
+    }
+    
     .movie-card {
         background: rgba(255, 255, 255, 0.95);
         border-radius: 20px;
@@ -258,15 +299,6 @@ st.markdown("""
         background: linear-gradient(135deg, #5a67d8 0%, #6b46c1 70%, #ec4899 100%);
     }
     
-    .recommendations-header {
-        text-align: center;
-        color: white;
-        font-size: 2.5rem;
-        font-weight: 600;
-        margin: 3rem 0 2rem 0;
-        text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
-    }
-    
     .loading-text {
         text-align: center;
         color: white;
@@ -306,6 +338,15 @@ st.markdown("""
             0 4px 10px rgba(0, 0, 0, 0.1);
         backdrop-filter: blur(10px);
         border-left: 4px solid #10b981;
+    }
+    
+    /* Button Container Centering */
+    .button-container {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        width: 100%;
+        margin: 2rem 0;
     }
 </style>
 """, unsafe_allow_html=True)
@@ -403,9 +444,12 @@ if movies is not None and similarity is not None:
             help="Choose a movie from the dropdown to get personalized recommendations"
         )
         
+        # Centered button with improved layout
+        st.markdown('<div class="button-container">', unsafe_allow_html=True)
         col1, col2, col3 = st.columns([1, 1, 1])
         with col2:
             recommend_button = st.button('🎯 Get Recommendations')
+        st.markdown('</div>', unsafe_allow_html=True)
         
         st.markdown('</div>', unsafe_allow_html=True)
     
@@ -418,7 +462,7 @@ if movies is not None and similarity is not None:
                 names, posters = recommend(selected_movie_name)
             
             if names and posters:
-                # Display recommendations in cards
+                # Display recommendations in cards with responsive layout
                 cols = st.columns(5, gap="medium")
                 
                 for idx, (col, name, poster) in enumerate(zip(cols, names, posters)):
@@ -434,7 +478,7 @@ if movies is not None and similarity is not None:
                         except Exception as e:
                             st.error(f"Error loading image for {name}")
                 
-                # Add some statistics or additional info
+                # Add some statistics or additional info with responsive layout
                 st.markdown("---")
                 col1, col2, col3 = st.columns(3)
                 with col1:
