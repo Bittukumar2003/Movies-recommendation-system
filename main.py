@@ -95,6 +95,21 @@ st.markdown("""
         align-items: center;
         position: relative;
         overflow: hidden;
+        margin-bottom: 1rem;
+    }
+    
+    @media (max-width: 768px) {
+        .movie-card {
+            padding: 1rem;
+            border-radius: 15px;
+        }
+    }
+    
+    @media (max-width: 480px) {
+        .movie-card {
+            padding: 0.8rem;
+            border-radius: 12px;
+        }
     }
     
     .movie-card::before {
@@ -188,16 +203,36 @@ st.markdown("""
         color: white;
         border: none;
         border-radius: 30px;
-        padding: 0.75rem 2rem;
+        padding: 0.75rem 2.5rem;
         font-size: 1.1rem;
         font-weight: 600;
         transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
         box-shadow: 
             0 8px 25px rgba(102, 126, 234, 0.3),
             0 4px 10px rgba(0, 0, 0, 0.1);
-        width: 100%;
+        width: auto;
+        min-width: 250px;
+        max-width: 400px;
+        margin: 0 auto;
+        display: block;
         position: relative;
         overflow: hidden;
+    }
+    
+    @media (max-width: 768px) {
+        .stButton > button {
+            min-width: 200px;
+            padding: 0.7rem 2rem;
+            font-size: 1rem;
+        }
+    }
+    
+    @media (max-width: 480px) {
+        .stButton > button {
+            min-width: 150px;
+            padding: 0.6rem 1.5rem;
+            font-size: 0.95rem;
+        }
     }
     
     .stButton > button::before {
@@ -368,7 +403,7 @@ if movies is not None and similarity is not None:
             help="Choose a movie from the dropdown to get personalized recommendations"
         )
         
-        col1, col2, col3 = st.columns([1, 2, 1])
+        col1, col2, col3 = st.columns([1, 1, 1])
         with col2:
             recommend_button = st.button('🎯 Get Recommendations')
         
