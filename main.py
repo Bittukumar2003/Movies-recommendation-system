@@ -395,7 +395,7 @@ if movies is not None and similarity is not None:
                         """, unsafe_allow_html=True)
                         
                         try:
-                            st.image(poster, use_column_width=True)
+                            st.image(poster, use_container_width=True)
                         except Exception as e:
                             st.error(f"Error loading image for {name}")
                 
